@@ -8,7 +8,7 @@ import { ControlsManager } from "./ControlsManager";
   await app.init({
     background: "#1099bb",
     width: window.innerWidth,
-    height: window.innerHeight - 80,
+    height: window.innerHeight - 120,
   });
 
   document.getElementById("pixi-container")!.appendChild(app.canvas);
@@ -27,6 +27,12 @@ import { ControlsManager } from "./ControlsManager";
     "star",
   ];
 
+  const shapesCountInput = document.querySelector<HTMLInputElement>(".js-shapes-count")!;
+
+  const updateShapesCount = () => {
+    shapesCountInput.value = fallingShapes.length.toString();
+  };
+
   const shapeListener = (event: FederatedPointerEvent, shape: Graphics) => {
     event.stopPropagation();
     app.stage.removeChild(shape);
@@ -34,6 +40,7 @@ import { ControlsManager } from "./ControlsManager";
     if (index > -1) {
       fallingShapes.splice(index, 1);
     }
+    updateShapesCount();
   };
 
   const handleAddShape = (x = Math.random() * app.screen.width, y = -100) => {
@@ -75,6 +82,7 @@ import { ControlsManager } from "./ControlsManager";
 
     fallingShapes.push(shape);
     app.stage.addChild(shape);
+    updateShapesCount();
   };
 
   const areaListener = (event: FederatedPointerEvent) => {
@@ -114,6 +122,7 @@ import { ControlsManager } from "./ControlsManager";
       if (shape.y > app.screen.height + 100) {
         app.stage.removeChild(shape);
         fallingShapes.splice(i, 1);
+        updateShapesCount();
       }
     }
   });

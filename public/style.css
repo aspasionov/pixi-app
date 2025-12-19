@@ -14,9 +14,18 @@ body {
     align-items: center;
 }
 
-#controls {
-    min-height: 80px;
+.row {
+    min-height: 60px;
     display: flex;
     align-items: center;
     justify-content: space-around;
+}
+
+input {
+    height: 34px;
+}
+
+label {
+    color: white;
+    display: block;
 }
