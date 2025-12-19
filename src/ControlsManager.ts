@@ -11,7 +11,7 @@ export class ControlsManager {
     initialGravity: number,
     initialShapesPerSecond: number,
     onGravityChange: (value: number) => void,
-    onShapesPerSecondChange: (value: number) => void
+    onShapesPerSecondChange: (value: number) => void,
   ) {
     this.gravity = initialGravity;
     this.shapesPerSecond = initialShapesPerSecond;

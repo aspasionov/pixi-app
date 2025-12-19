@@ -1,14 +1,14 @@
 import { Application, Graphics, FederatedPointerEvent } from "pixi.js";
-import { ShapeFactory } from './ShapeFactory';
-import { getRundomItemFromArray } from './helpers';
-import { ControlsManager } from './ControlsManager';
+import { ShapeFactory } from "./ShapeFactory";
+import { getRundomItemFromArray } from "./helpers";
+import { ControlsManager } from "./ControlsManager";
 
 (async () => {
   const app = new Application();
   await app.init({
     background: "#1099bb",
     width: window.innerWidth,
-    height: window.innerHeight - 80
+    height: window.innerHeight - 80,
   });
 
   document.getElementById("pixi-container")!.appendChild(app.canvas);
@@ -17,8 +17,16 @@ import { ControlsManager } from './ControlsManager';
   let gravity = 2;
   let shapesPerSecond = 1;
   let shapeIntervalId: number;
-  const shapeTypes = ['triangle', 'square', 'pentagon', 'hexagon', 'circle', 'ellipse', 'star'];
-  
+  const shapeTypes = [
+    "triangle",
+    "square",
+    "pentagon",
+    "hexagon",
+    "circle",
+    "ellipse",
+    "star",
+  ];
+
   const shapeListener = (event: FederatedPointerEvent, shape: Graphics) => {
     event.stopPropagation();
     app.stage.removeChild(shape);
@@ -26,33 +34,33 @@ import { ControlsManager } from './ControlsManager';
     if (index > -1) {
       fallingShapes.splice(index, 1);
     }
-  }
+  };
 
   const handleAddShape = (x = Math.random() * app.screen.width, y = -100) => {
     const shapeType = getRundomItemFromArray(shapeTypes);
     const newFactory = new ShapeFactory({ referenceWidth: app.screen.width });
     let shape: Graphics;
 
-    switch(shapeType) {
-      case 'triangle':
+    switch (shapeType) {
+      case "triangle":
         shape = newFactory.polygon(3);
         break;
-      case 'square':
+      case "square":
         shape = newFactory.polygon(4);
         break;
-      case 'pentagon':
+      case "pentagon":
         shape = newFactory.polygon(5);
         break;
-      case 'hexagon':
+      case "hexagon":
         shape = newFactory.polygon(6);
         break;
-      case 'circle':
+      case "circle":
         shape = newFactory.circle();
         break;
-      case 'ellipse':
+      case "ellipse":
         shape = newFactory.ellipse();
         break;
-      case 'star':
+      case "star":
         shape = newFactory.star();
         break;
       default:
@@ -60,18 +68,18 @@ import { ControlsManager } from './ControlsManager';
     }
 
     shape.position.set(x, y);
-    shape.eventMode = 'static';
-    shape.cursor = 'pointer';
+    shape.eventMode = "static";
+    shape.cursor = "pointer";
 
-    shape.on('pointerdown', (e) => shapeListener(e, shape));
+    shape.on("pointerdown", (e) => shapeListener(e, shape));
 
     fallingShapes.push(shape);
     app.stage.addChild(shape);
-  }
+  };
 
   const areaListener = (event: FederatedPointerEvent) => {
     handleAddShape(event.global.x, event.global.y);
-  }
+  };
 
   const mask = new Graphics()
     .rect(0, 0, app.screen.width, app.screen.height)
@@ -79,10 +87,10 @@ import { ControlsManager } from './ControlsManager';
   app.stage.addChild(mask);
   app.stage.mask = mask;
 
-  app.stage.eventMode = 'static';
+  app.stage.eventMode = "static";
   app.stage.hitArea = app.screen;
 
-  app.stage.on('pointerdown', areaListener);
+  app.stage.on("pointerdown", areaListener);
 
   const startShapeInterval = () => {
     if (shapeIntervalId) {
@@ -119,6 +127,6 @@ import { ControlsManager } from './ControlsManager';
     (newShapesPerSecond) => {
       shapesPerSecond = newShapesPerSecond;
       startShapeInterval();
-    }
+    },
   );
 })();

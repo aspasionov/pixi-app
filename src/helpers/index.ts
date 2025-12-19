@@ -1,4 +1,4 @@
-const getRundomItemFromArray = (array: any[]) => {
+const getRundomItemFromArray = <T>(array: T[]): T => {
   const randomIndex = Math.floor(Math.random() * array.length);
   return array[randomIndex];
 };
