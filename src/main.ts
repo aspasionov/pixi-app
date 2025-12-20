@@ -2,6 +2,7 @@ import { Application, Graphics, FederatedPointerEvent } from "pixi.js";
 import { ShapeFactory } from "./ShapeFactory";
 import { getRundomItemFromArray } from "./helpers";
 import { ControlsManager } from "./ControlsManager";
+import { StatsDisplay } from "./StatsDisplay";
 
 (async () => {
   const app = new Application();
@@ -27,11 +28,7 @@ import { ControlsManager } from "./ControlsManager";
     "star",
   ];
 
-  const shapesCountInput = document.querySelector<HTMLInputElement>(".js-shapes-count")!;
-
-  const updateShapesCount = () => {
-    shapesCountInput.value = fallingShapes.length.toString();
-  };
+  const statsDisplay = new StatsDisplay(app);
 
   const shapeListener = (event: FederatedPointerEvent, shape: Graphics) => {
     event.stopPropagation();
@@ -40,7 +37,8 @@ import { ControlsManager } from "./ControlsManager";
     if (index > -1) {
       fallingShapes.splice(index, 1);
     }
-    updateShapesCount();
+    statsDisplay.updateShapesCount(fallingShapes.length);
+    statsDisplay.updateShapesArea();
   };
 
   const handleAddShape = (x = Math.random() * app.screen.width, y = -100) => {
@@ -82,7 +80,8 @@ import { ControlsManager } from "./ControlsManager";
 
     fallingShapes.push(shape);
     app.stage.addChild(shape);
-    updateShapesCount();
+    statsDisplay.updateShapesCount(fallingShapes.length);
+    statsDisplay.updateShapesArea();
   };
 
   const areaListener = (event: FederatedPointerEvent) => {
@@ -122,7 +121,8 @@ import { ControlsManager } from "./ControlsManager";
       if (shape.y > app.screen.height + 100) {
         app.stage.removeChild(shape);
         fallingShapes.splice(i, 1);
-        updateShapesCount();
+        statsDisplay.updateShapesCount(fallingShapes.length);
+        statsDisplay.updateShapesArea();
       }
     }
   });
