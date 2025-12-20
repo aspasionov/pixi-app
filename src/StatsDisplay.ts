@@ -10,8 +10,10 @@ export class StatsDisplay {
 
   constructor(app: Application) {
     this.app = app;
-    this.shapesCountInput = document.querySelector<HTMLInputElement>(".js-shapes-count")!;
-    this.shapesAreaInput = document.querySelector<HTMLInputElement>(".js-shapes-area")!;
+    this.shapesCountInput =
+      document.querySelector<HTMLInputElement>(".js-shapes-count")!;
+    this.shapesAreaInput =
+      document.querySelector<HTMLInputElement>(".js-shapes-area")!;
   }
 
   updateShapesCount(count: number): void {
@@ -38,7 +40,10 @@ export class StatsDisplay {
       const b = pixels[i + 2];
       const a = pixels[i + 3];
 
-      if (a > 128 && !(r === this.bgColor.r && g === this.bgColor.g && b === this.bgColor.b)) {
+      if (
+        a > 128 &&
+        !(r === this.bgColor.r && g === this.bgColor.g && b === this.bgColor.b)
+      ) {
         count++;
       }
     }
