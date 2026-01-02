@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/style.css" />
+    <title>PixiJS - Template</title>
+  </head>
+
+  <body>
+    <div id="app">
+      <div>
+        <div class="row">
+          <div class="row__item">
+            <label for="shapes-count">Shapes count</label>
+            <input type="text" readonly id="shapes-count" class="js-shapes-count">
+          </div>
+          <div class="row__item">
+            <label for="shapes-area">Shapes area</label>
+            <input type="text" readonly id="shapes-area" class="js-shapes-area">
+          </div>
+        </div>
+        <div id="pixi-container"></div>
+        <div class="row">
+          <div class="row__item">
+            <button class="js-gravity-btn" data-value="decrease">-</button>
+            <button class="js-gravity-btn" data-value="increase">+</button>
+            <div class="js-gravity-value"></div>
+          </div>
+          <div class="row__item">
+            <button class="js-shapes-btn" data-value="decrease">-</button>
+            <button class="js-shapes-btn" data-value="increase">+</button>
+            <div class="js-shapes-value"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
